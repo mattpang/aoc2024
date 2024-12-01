@@ -4,10 +4,12 @@ This year's Rules
 
 If there's a language I can get running, beginning with that letter than I'll attempt it. 
 
+## Completed: 
+
 Day 1: awk
 
 ----
-## Some what plan 
+## Sort of plan 
 
 Day 2: bash
 
