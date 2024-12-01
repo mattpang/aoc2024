@@ -7,6 +7,7 @@ If there's a language I can get running, beginning with that letter than I'll at
 Day 1: awk
 
 ----
+## Some what plan 
 
 Day 2: bash
 
