@@ -8,10 +8,11 @@ If there's a language I can get running, beginning with that letter than I'll at
 
 Day 1: awk
 
+Day 2: bash
+
 ----
 ## Sort of plan 
 
-Day 2: bash
 
 Day 3: c
 
