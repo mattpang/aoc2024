@@ -10,11 +10,10 @@ Day 1: awk
 
 Day 2: bash
 
+Day 3: c
 ----
 ## Sort of plan 
 
-
-Day 3: c
 
 Day 4: dart
 
