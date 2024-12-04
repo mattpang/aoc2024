@@ -1,7 +1,6 @@
 // run with dart day4.dart sample.txt output.txt
 // look for xmas
 import 'dart:io';
-import 'dart:collection';
 
 class Coordinate {
   final int x, y;
@@ -19,13 +18,8 @@ class Coordinate {
 }
 
 int checker(Coordinate xy,Map grid){
-  // check every X in each direction to see if might have an xmas
-  // print(grid);
+  // check every +,X in each direction to see if might have an xmas
   List ans = [];
-  // print(grid[[8,8]]);
-  List<String> PAT = 'XMAS'.split(''); 
-  // want to iterate PAT and i,j looping (i,j)++/0/--
-  //
   int seen = 0;
   for (int xsign in [-1,0,1]){
     for (int ysign in [-1,0,1]){
@@ -45,34 +39,27 @@ int checker(Coordinate xy,Map grid){
 }
 
 
-String xchecker(Coordinate xy, Map grid){
+int xchecker(Coordinate xy, Map grid){
   // check for x cross of MAS for every A char.
 
-      for (int sign in [-1,1]){
 
-        List<int> dx = [-1,0,1];
-        List<int> dy = [-1,0,1];
-        String left_cand = [grid[Coordinate(xy.x-1,xy.y-1)],grid[Coordinate(xy.x,xy.y)],grid[Coordinate(xy.x+1,xy.y+1)]].join('');
-        String right_cand = [grid[Coordinate(xy.x-1,xy.y+1)],grid[Coordinate(xy.x,xy.y)],grid[Coordinate(xy.x+1,xy.y-1)]].join('');
-        // both lside and lright is (MAS or SAM)
-        if (((left_cand=='MAS') | (left_cand=='SAM'))&((right_cand=='MAS') | (right_cand=='SAM'))){
-          // print([xy.x,xy.y,cand,dx,dy,sign]);
-          // print((xy.x,xy.y,left_cand,right_cand));
-          return [xy.x,xy.y].join(',');
-        }
-      }
-  return '';
+  String left_cand = [grid[Coordinate(xy.x-1,xy.y-1)],grid[Coordinate(xy.x,xy.y)],grid[Coordinate(xy.x+1,xy.y+1)]].join('');
+  String right_cand = [grid[Coordinate(xy.x-1,xy.y+1)],grid[Coordinate(xy.x,xy.y)],grid[Coordinate(xy.x+1,xy.y-1)]].join('');
+  // both lside and lright is (MAS or SAM)
+  if (((left_cand=='MAS') | (left_cand=='SAM'))&((right_cand=='MAS') | (right_cand=='SAM'))){
+    return 1;
+  }
+
+  return 0;
 }
 
 void main(List<String> args){
-  List<String> input_lines;
-  File(args[0]).readAsLines().then((List<String> lines){
-    input_lines = lines;
-    int y=0;
-    Set<String> marked = {};
-    // var wgrid = LinkedHashMap<List<int>,String>();
-    final wgrid = {};
 
+  File(args[0]).readAsLines().then((List<String> lines){
+
+    int y=0;
+
+    final wgrid = {};
 
     for (String line in lines){
       int x =0;
@@ -93,16 +80,13 @@ void main(List<String> args){
         }
     print('part 1: $total');
 
-    
+    total = 0;
     for(Coordinate k in wgrid.keys){
         if (wgrid[k]=='A'){
-            String hasseen = xchecker(k, wgrid);
-            if (hasseen.length>0){
-              marked.add(hasseen);
-            }
+            total += xchecker(k, wgrid);
           };
         }
-    print('part 2: ${marked.length}');
+    print('part 2: ${total}');
 
     });
 
