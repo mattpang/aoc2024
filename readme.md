@@ -12,10 +12,11 @@ Day 2: bash
 
 Day 3: c++
 
+Day 4: dart
+
 ----
 ## Sort of plan 
 
-Day 4: dart
 
 Day 5: elixir or erlang
 
