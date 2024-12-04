@@ -1,4 +1,4 @@
-// run with dart day4.dart sample.txt output.txt
+// run with dart day4.dart inputs/input-4.txt
 // look for xmas
 import 'dart:io';
 
