@@ -1,33 +1,31 @@
-# 2024
+# Advent of Chodes 2024
 
-This year's Rules
+This year's Rules:
 
-If there's a language I can get running, beginning with that letter than I'll attempt it. 
+If there's a language I can get running, beginning with that letter than I'll attempt it. Try and do an alphabet's worth
 
-## Completed: 
+## Completed, and run times: 
 
-Day 1: awk
+Day 1: awk 0.01s
 
-Day 2: bash
+Day 2: bash 0.56s
 
-Day 3: c++
+Day 3: c++ 0.06s
 
-Day 4: dart
+Day 4: dart 0.23s in intepreter, 0.02s after compiling
 
-Day 5: elixir 
+Day 5: elixir 0.49s in intepreter, 0.29s compiled 
 
 ----
 ## Sort of plan 
 
-
-
-Day 6: fortran
+Day 6: fortran or f#
 
 Day 7: go
 
 Day 8: Haskell
 
-Day 9: iPython? 
+Day 9: iPython? There's no good options here. 
 
 Day 10: Julia or Javascript
 
