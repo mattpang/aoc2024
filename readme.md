@@ -14,11 +14,12 @@ Day 3: c++
 
 Day 4: dart
 
+Day 5: elixir 
+
 ----
 ## Sort of plan 
 
 
-Day 5: elixir or erlang
 
 Day 6: fortran
 
