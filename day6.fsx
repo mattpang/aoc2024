@@ -118,8 +118,21 @@ let patrol_p2(patrol_p2: MapDefinition) (newWall: int array) =
                     pos[0] <- pos[0] - currentDir[0]
                     pos[1] <- pos[1] - currentDir[1]
                     currentDirection <- turnRight currentDirection
+    
+    // printf "%A \n" <| newWall
+
+    // if newWall[0] = 6 && newWall[1] = 3 then
+    //     printf "\n"
+    //     printMap visitedMap
+
     (visitedMap, counter)
 
+let printMap (map: char[,]) =
+    for row in [0..map.GetUpperBound(0)] do
+        for column in [0..map.GetUpperBound(1) ] do
+            printf "%c" map[row, column]
+        printfn ""
+        
 let checkloops(map: MapDefinition) =
     let maxRows = map.Definition.GetLength(0)
     let maxCols = map.Definition.GetLength(1)
