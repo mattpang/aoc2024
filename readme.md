@@ -16,10 +16,10 @@ Day 4: dart 0.23s in intepreter, 0.02s after compiling
 
 Day 5: elixir 0.49s in intepreter, 0.29s compiled 
 
+Day 6: f# 22.66s in intepreter
 ----
 ## Sort of plan 
 
-Day 6: fortran or f#
 
 Day 7: go
 
