@@ -58,9 +58,6 @@ func main() {
 		}
 
 		var pot_ans []int
-		// pot_ans := make(map[string]int)
-		// store the sub vals, and we have two branching ops each step in x.
-		// need to map this to dict instead?
 
 		for x := range vals {
 			if x == 0 {
@@ -83,7 +80,7 @@ func main() {
 		}
 	}
 	fmt.Println(total)
-
+	// no time to refactor
 	ops = append(ops, concat)
 	p2total := 0
 	for _, line := range lines {
@@ -103,9 +100,6 @@ func main() {
 		}
 
 		var pot_ans []int
-		// pot_ans := make(map[string]int)
-		// store the sub vals, and we have two branching ops each step in x.
-		// need to map this to dict instead?
 
 		for x := range vals {
 			if x == 0 {
