@@ -6,21 +6,21 @@ If there's a language I can get running, beginning with that letter than I'll at
 
 ## Completed, and run times: 
 
-Day 1: awk 0.01s
+Day 1: awk 0.097s
 
-Day 2: bash 0.56s
+Day 2: bash 0.610s
 
-Day 3: c++ 0.06s
+Day 3: c++ 0.294s
 
-Day 4: dart 0.23s in intepreter, 0.02s after compiling
+Day 4: dart 0.207s in intepreter, 0.051s after compiling
 
-Day 5: elixir 0.49s in intepreter, 0.29s compiled 
+Day 5: elixir 0.542s in intepreter, 0.348s compiled 
 
-Day 6: f# 22.66s in intepreter
+Day 6: f# 11.252s in intepreter
 
-Day 7: go 0.48s
+Day 7: go 0.463s
 
-Day 8: Haskell 0.02s
+Day 8: Haskell 0.114s
 
 ----
 ## Sort of plan 
