@@ -20,12 +20,10 @@ Day 6: f# 22.66s in intepreter
 
 Day 7: go 0.48s
 
+Day 8: Haskell 0.02s
+
 ----
 ## Sort of plan 
-
-
-
-Day 8: Haskell
 
 Day 9: iPython? There's no good options here. 
 
