@@ -22,12 +22,12 @@ Day 7: go 0.463s
 
 Day 8: Haskell 0.114s
 
+Day 9: Javascript 0.229s
+
 ----
 ## Sort of plan 
 
-Day 9: iPython? There's no good options here. 
-
-Day 10: Julia or Javascript
+Day 10: Julia 
 
 Day 11: Kotlin or K if I feel hardcore
 
