@@ -24,10 +24,11 @@ Day 8: Haskell 0.114s
 
 Day 9: Javascript 0.229s
 
+Day 10: Julia 0.523s
+
 ----
 ## Sort of plan 
 
-Day 10: Julia 
 
 Day 11: Kotlin or K if I feel hardcore
 
