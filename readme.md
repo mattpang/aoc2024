@@ -26,11 +26,12 @@ Day 9: Javascript 0.229s
 
 Day 10: Julia 0.523s
 
+Day 11: Kotlin replit total: 9s, but should be ~0.1s compiled.
+
 ----
 ## Sort of plan 
 
 
-Day 11: Kotlin or K if I feel hardcore
 
 Day 12: LISP or Lua
 
