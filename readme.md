@@ -28,14 +28,14 @@ Day 10: Julia 0.523s
 
 Day 11: Kotlin replit total: 9s, but should be ~0.1s compiled.
 
+Day 12: Lua 0.018s
+
+Day 13: Mathematica 0.00605s
+
 ----
 ## Sort of plan 
 
 
-
-Day 12: LISP or Lua
-
-Day 13: Mathematica
 
 Day 14: Nim
 
