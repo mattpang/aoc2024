@@ -32,12 +32,11 @@ Day 12: Lua 0.018s
 
 Day 13: Mathematica 0.00605s
 
+Day 14: Nim 0.382s
+
 ----
 ## Sort of plan 
 
-
-
-Day 14: Nim
 
 Day 15: Ocaml
 
