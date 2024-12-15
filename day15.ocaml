@@ -1,0 +1,99 @@
+(* Utility functions for Part 2 *)
+let left (x, y) = (x, y - 1)
+let right (x, y) = (x, y + 1)
+
+(* Push function for Part 2 *)
+let rec push_advanced box d boxes walls =
+  let nxt = addt box d in
+  if List.mem nxt walls || List.mem (right nxt) walls then
+    None
+  else if d = (1, 0) || d = (-1, 0) then
+    (* Moving up/down *)
+    let res1 = if List.mem nxt boxes then push_advanced nxt d boxes walls else Some boxes in
+    let res2 = if List.mem (left nxt) boxes then push_advanced (left nxt) d boxes walls else Some boxes in
+    let res3 = if List.mem (right nxt) boxes then push_advanced (right nxt) d boxes walls else Some boxes in
+    (match res1, res2, res3 with
+    | Some b1, Some b2, Some b3 -> Some (List.filter ((<>) box) boxes @ [nxt])
+    | _ -> None)
+  else if d = (0, 1) then
+    (* Moving right *)
+    if List.mem (right nxt) boxes then
+      (match push_advanced (right nxt) d boxes walls with
+      | Some new_boxes -> Some (List.filter ((<>) box) boxes @ [nxt])
+      | None -> None)
+    else
+      Some (List.filter ((<>) box) boxes @ [nxt])
+  else if d = (0, -1) then
+    (* Moving left *)
+    if List.mem (left nxt) boxes then
+      (match push_advanced (left nxt) d boxes walls with
+      | Some new_boxes -> Some (List.filter ((<>) box) boxes @ [nxt])
+      | None -> None)
+    else
+      Some (List.filter ((<>) box) boxes @ [nxt])
+  else
+    Some (List.filter ((<>) box) boxes @ [nxt])
+
+(* Part 2 logic *)
+let part2 ll moves =
+  (* Parse input *)
+  let walls = ref [] in
+  let boxes = ref [] in
+  let robot = ref (0, 0) in
+
+  List.iteri (fun i line ->
+    String.iteri (fun j ch ->
+      let j = j * 2 in (* Handle double-width columns *)
+      match ch with
+      | '#' -> walls := (i, j) :: (i, j + 1) :: !walls
+      | 'O' -> boxes := (i, j) :: !boxes
+      | '@' -> robot := (i, j)
+      | _ -> ()
+    ) line
+  ) ll;
+
+  (* Process moves *)
+  List.iter (fun move ->
+    List.iter (fun box ->
+      assert (not (List.mem (right box) !boxes));
+      assert (not (List.mem (right box) !walls))
+    ) !boxes;
+
+    let nxt = addt !robot move in
+    if not (List.mem nxt !walls) then
+      if List.mem nxt !boxes then
+        let copy = !boxes in
+        (match push_advanced nxt move !boxes !walls with
+        | Some new_boxes -> boxes := new_boxes
+        | None -> boxes := copy)
+      else if List.mem (left nxt) !boxes then
+        let copy = !boxes in
+        (match push_advanced (left nxt) move !boxes !walls with
+        | Some new_boxes -> boxes := new_boxes
+        | None -> boxes := copy)
+      else
+        robot := nxt
+  ) moves;
+
+  (* Compute result *)
+  List.fold_left (fun acc (x, y) -> acc + (100 * x) + y) 0 !boxes
+
+(* Main function *)
+let () =
+  let filename = Sys.argv.(1) in
+  let input = String.concat "\n" (read_file filename) in
+  let parts = String.split_on_char '\n' input |> List.filter (fun x -> x <> "") in
+  let ll = List.filter (fun x -> x <> "") (String.split_on_char '\n' (List.nth parts 0)) in
+  let moves = List.nth parts 1 |> String.to_seq |> List.of_seq |> List.filter ((<>) '\n') in
+  let moves = List.map (fun m ->
+    let idx = find_index (fun dir -> Char.escaped m = dir) d in
+    List.nth dirs idx
+  ) moves in
+
+  (* Part 1 result *)
+  let result1 = part1 ll moves in
+  Printf.printf "Part 1: %d\n" result1;
+
+  (* Part 2 result *)
+  let result2 = part2 ll moves in
+  Printf.printf "Part 2: %d\n" result2
