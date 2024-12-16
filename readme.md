@@ -34,13 +34,12 @@ Day 13: Mathematica 0.00605s
 
 Day 14: Nim 0.382s
 
+Day 15: Ocaml 0.37s
+
+Day 16: perl 4.941s
+
 ----
 ## Sort of plan 
-
-
-Day 15: Ocaml
-
-Day 16: perl
 
 Day 17: Q#? Quantum computer it
 
