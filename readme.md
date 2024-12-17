@@ -38,10 +38,11 @@ Day 15: Ocaml 0.37s
 
 Day 16: perl 4.941s
 
+Day 17: python 0.063s
+
 ----
 ## Sort of plan 
 
-Day 17: Q#? Quantum computer it
 
 Day 18: R
 
