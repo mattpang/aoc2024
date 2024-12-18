@@ -40,11 +40,10 @@ Day 16: perl 4.941s
 
 Day 17: python 0.063s
 
+Day 18: Rust 1.309s
+
 ----
 ## Sort of plan 
-
-
-Day 18: R
 
 Day 19: Scala or Swift
 
