@@ -180,6 +180,7 @@ fn main() -> io::Result<()> {
     }
 
     // part 2, find the coords of the wall that blocks first returns no possible path
+    // doing it backwards because its faster than looping all valids. we return the first valid from the end.
     for i in (found_steps..=3450).rev(){
         
         let walls = read_walls(filename,&i)?;
@@ -190,7 +191,7 @@ fn main() -> io::Result<()> {
             let file = File::open(&path)?;
             let reader = io::BufReader::new(file);
         
-            if let Some(Ok(line)) = reader.lines().nth((i-1) as usize) {
+            if let Some(Ok(line)) = reader.lines().nth((i) as usize) {
                 println!("{:?}", line);
             }                
             break
