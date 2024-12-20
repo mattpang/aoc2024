@@ -58,6 +58,7 @@ while (queue.length > 0) {
 
 let skips = 0;
 let savedArr = {};
+let p2skips =0;
 for (let firstPos = 0; firstPos < pathPositions.length - 1; firstPos++) {
     for (
         let secondPos = firstPos + 1;
@@ -67,10 +68,7 @@ for (let firstPos = 0; firstPos < pathPositions.length - 1; firstPos++) {
         const savedBySkipping = secondPos - firstPos;
 
         //check if they have the same x or y
-        if (
-            pathPositions[firstPos].x === pathPositions[secondPos].x ||
-            pathPositions[firstPos].y === pathPositions[secondPos].y
-        ) {
+        
             //check if they are 3 units or less away
             let xDiff = Math.abs(
                 pathPositions[firstPos].x - pathPositions[secondPos].x
@@ -79,54 +77,21 @@ for (let firstPos = 0; firstPos < pathPositions.length - 1; firstPos++) {
                 pathPositions[firstPos].y - pathPositions[secondPos].y
             );
 
-            if (xDiff + yDiff <= 2) {
+            if (xDiff + yDiff <= 20) {
                 const saved = savedBySkipping - (xDiff + yDiff);
-
                 //if (saved > 0) console.log("saved", saved);
-
                 if (saved >= 100) {
-                    skips++;
-
-                    savedArr[saved] = savedArr[saved] ? savedArr[saved] + 1 : 1;
-                    //start a frequency counter
+                    if (xDiff + yDiff<=2){
+                        skips++;
+                        p2skips++
+                    }else{
+                        p2skips++
+                    }
                 }
             }
         }
     }
-}
+
 
 console.log("part 1:", skips);
-
-
-skips = 0;
-savedArr = {};
-for (let firstPos = 0; firstPos < pathPositions.length - 1; firstPos++) {
-    for (
-        let secondPos = firstPos + 1;
-        secondPos < pathPositions.length;
-        secondPos++
-    ) {
-        const savedBySkipping = secondPos - firstPos;
-
-
-        let xDiff = Math.abs(
-            pathPositions[firstPos].x - pathPositions[secondPos].x
-        );
-        let yDiff = Math.abs(
-            pathPositions[firstPos].y - pathPositions[secondPos].y
-        );
-
-        if (xDiff + yDiff <= 20) {
-            const saved = savedBySkipping - (xDiff + yDiff);
-
-            if (saved >= 100) {
-                skips++;
-                savedArr[saved] = savedArr[saved] ? savedArr[saved] + 1 : 1;
-
-            }
-        }
-    }
-}
-
-
-console.log("part 2:", skips);
+console.log("part 2:", p2skips);

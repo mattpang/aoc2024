@@ -44,7 +44,7 @@ Day 18: Rust 1.309s
 
 Day 19: Swift 0.995s compiled: 0.268s
 
-Day 20: TypeScript 0.387s
+Day 20: TypeScript 0.203s
 
 ----
 ## Sort of plan 
