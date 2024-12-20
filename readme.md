@@ -43,11 +43,12 @@ Day 17: python 0.063s
 Day 18: Rust 1.309s
 
 Day 19: Swift 0.995s compiled: 0.268s
+
+Day 20: TypeScript 0.387s
+
 ----
 ## Sort of plan 
 
-
-Day 20: TypeScript
 
 Day 21: UnrealScript? 
 
