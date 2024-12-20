@@ -1,0 +1,198 @@
+(* ocaml -I +str str.cma d15.ml *)
+
+module Pos = struct
+  type t = int * int
+
+  let compare (r1, c1) (r2, c2) =
+    if Stdlib.compare r1 r2 = 0 then Stdlib.compare c1 c2
+    else Stdlib.compare r1 r2
+end
+
+module PosMap = Map.Make (Pos)
+
+type map_element = Wall | Box | WideBoxLeft | WideBoxRight | Robot
+
+type direction = Up | Right | Down | Left
+
+type warehouse_map = {width: int; height: int; elements: map_element PosMap.t}
+
+let read_input path =
+  let parse_map s =
+  String.trim s |> String.split_on_char '\n'
+  |> List.mapi (fun row line ->
+         String.to_seq line
+         |> Seq.mapi (fun col ch ->
+                match ch with
+                | '#' -> Some ((row, col), Wall)
+                | 'O' -> Some ((row, col), Box)
+                | '@' -> Some ((row, col), Robot)
+                | _ -> None)
+         |> Seq.filter_map (fun x -> x)
+         |> List.of_seq)
+  |> List.concat
+  in
+  let parse_instr s =
+    String.trim s
+    |> Str.global_replace (Str.regexp "\n") ""
+    |> String.to_seq |> List.of_seq
+    |> List.map (function
+         | '^' ->
+             Up
+         | '>' ->
+             Right
+         | 'v' ->
+             Down
+         | '<' ->
+             Left
+         | ch ->
+             failwith ("Unexpected instruction: " ^ String.make 1 ch) )
+  in
+  let input =
+    In_channel.with_open_text path In_channel.input_all
+    |> Str.split (Str.regexp "\n\n")
+  in
+  let m, i =
+    match input with [m; i] -> (m, i) | _ -> failwith "Invalid input file"
+  in
+  (parse_map m, parse_instr i)
+
+let _render_map {width; height; elements} =
+  let f row col =
+    match PosMap.find_opt (row, col) elements with
+    | Some Wall ->
+        '$'
+    | Some Box ->
+        'O'
+    | Some WideBoxLeft ->
+        '['
+    | Some WideBoxRight ->
+        ']'
+    | Some Robot ->
+        '@'
+    | None ->
+        ' '
+  in
+  Array.init_matrix height width f
+  |> Array.map (fun a -> Array.to_seq a |> String.of_seq)
+  |> Array.to_list |> String.concat "\n"
+
+let make_warehouse_map lst =
+  let max_row, max_col =
+    List.fold_left (fun (mr, mc) ((r, c), _) -> (max mr r, max mc c)) (0, 0) lst
+  in
+  let elements = List.to_seq lst |> PosMap.of_seq in
+  { width = max_col + 1; height = max_row + 1; elements }
+  
+let make_wide_warehouse_map lst =
+  let lst =
+    List.map (fun ((r, c), e) -> ((r, 2 * c), e)) lst
+    |> List.map (fun ((r, c), e) ->
+           match e with
+           | Wall ->
+               [((r, c), Wall); ((r, c + 1), Wall)]
+           | Box ->
+               [((r, c), WideBoxLeft); ((r, c + 1), WideBoxRight)]
+           | Robot ->
+               [((r, c), Robot)]
+           | _ ->
+               failwith "Error" )
+    |> List.flatten
+  in
+  let max_col = List.fold_left max 0 (List.map (fun ((_, c), _) -> c) lst) in
+  let max_row = List.fold_left max 0 (List.map (fun ((r, _), _) -> r) lst) in
+  {width= max_col + 1; height= max_row + 1; elements= PosMap.of_list lst}
+
+let find_robot map =
+  PosMap.filter (fun _ v -> v = Robot) map.elements
+  |> PosMap.bindings |> List.hd |> fst
+
+let next (r, c) = function
+  | Up ->
+      (r - 1, c)
+  | Right ->
+      (r, c + 1)
+  | Down ->
+      (r + 1, c)
+  | Left ->
+      (r, c - 1)
+
+let is_empty pos map =
+  match PosMap.find_opt pos map.elements with None -> true | _ -> false
+
+let rec move_element map pos dir e =
+  let pos' = next pos dir in
+  let map' = move map pos' dir in
+  if is_empty pos' map' then
+    {map' with elements= PosMap.remove pos map'.elements |> PosMap.add pos' e}
+  else map
+
+and move map pos dir =
+  match PosMap.find_opt pos map.elements with
+  | Some Wall ->
+      map
+  | Some Box ->
+      move_element map pos dir Box
+  | Some WideBoxLeft -> (
+    match dir with
+    | Up | Down ->
+        let r, c = pos in
+        let map' = move_element map (r, c + 1) dir WideBoxRight in
+        let map' = move_element map' (r, c) dir WideBoxLeft in
+        if is_empty (r, c) map' && is_empty (r, c + 1) map' then map' else map
+    | Left ->
+        failwith "Impossible"
+    | Right ->
+        let r, c = pos in
+        let map' = move_element map (r, c + 1) dir WideBoxRight in
+        if is_empty (r, c + 1) map' then
+          move_element map' (r, c) dir WideBoxLeft
+        else map )
+  | Some WideBoxRight -> (
+    match dir with
+    | Up | Down ->
+        let r, c = pos in
+        let map' = move_element map (r, c - 1) dir WideBoxLeft in
+        let map' = move_element map' (r, c) dir WideBoxRight in
+        if is_empty (r, c) map' && is_empty (r, c - 1) map' then map' else map
+    | Right ->
+        failwith "Impossible"
+    | Left ->
+        let r, c = pos in
+        let map' = move_element map (r, c - 1) dir WideBoxLeft in
+        if is_empty (r, c - 1) map' then
+          move_element map' (r, c) dir WideBoxRight
+        else map )
+  | Some Robot ->
+      move_element map pos dir Robot
+  | None ->
+      map
+
+let rec process map = function
+  | i :: t ->
+      let map' = move map (find_robot map) i in
+      process map' t
+  | _ ->
+      map
+
+let gps_coordinate (r, c) = (r * 100) + c
+
+let sum_of_coordinates element map =
+  PosMap.filter (fun _ e -> e = element) map.elements
+  |> PosMap.bindings |> List.map fst |> List.map gps_coordinate
+  |> List.fold_left ( + ) 0
+
+let map, instructions =
+  let e, i = read_input "./inputs/input-15.txt" in
+  (make_warehouse_map e, i)
+
+let () =
+  Printf.printf "\nPart 1: %d\n%!"
+    (process map instructions |> sum_of_coordinates Box)
+
+let map, instructions =
+  let e, i = read_input "./inputs/input-15.txt" in
+  (make_wide_warehouse_map e, i)
+
+let () =
+  Printf.printf "Part 2: %d\n%!"
+    (process map instructions |> sum_of_coordinates WideBoxLeft)
