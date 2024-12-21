@@ -46,11 +46,11 @@ Day 19: Swift 0.995s compiled: 0.268s
 
 Day 20: TypeScript 0.203s
 
+Day 21: uiua 0.029s
+
 ----
 ## Sort of plan 
 
-
-Day 21: UnrealScript? 
 
 Day 22: V 
 
