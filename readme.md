@@ -48,11 +48,12 @@ Day 20: TypeScript 0.203s
 
 Day 21: uiua 0.029s
 
+Day 22: V 28.869s
+
 ----
 ## Sort of plan 
 
 
-Day 22: V 
 
 Day 23: WolframLanguage
 
