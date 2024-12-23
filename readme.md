@@ -50,12 +50,10 @@ Day 21: uiua 0.029s
 
 Day 22: V 28.869s
 
+Day 23: WolframLanguage 0.522s
+
 ----
 ## Sort of plan 
-
-
-
-Day 23: WolframLanguage
 
 Day 24: Xojo
 
