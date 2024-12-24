@@ -52,9 +52,10 @@ Day 22: V 28.869s
 
 Day 23: WolframLanguage 0.522s
 
+Day 24: x86_64 asm 0.012s
+
 ----
 ## Sort of plan 
 
-Day 24: Xojo
 
 Day 25: skip y, Zig
