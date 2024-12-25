@@ -54,8 +54,4 @@ Day 23: WolframLanguage 0.522s
 
 Day 24: x86_64 asm 0.012s
 
-----
-## Sort of plan 
-
-
-Day 25: skip y, Zig
+Day 25: Zig 0.012
