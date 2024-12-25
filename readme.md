@@ -54,4 +54,4 @@ Day 23: WolframLanguage 0.522s
 
 Day 24: x86_64 asm 0.012s
 
-Day 25: Zig 0.012
+Day 25: Zig 0.012s
